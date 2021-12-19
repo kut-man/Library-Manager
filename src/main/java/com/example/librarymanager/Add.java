@@ -13,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.sql.*;
 
 public class Add {
     public static void start () {
@@ -77,5 +78,21 @@ public class Add {
 
         addStage.setScene(scene);
         addStage.show();
+
+        String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
+        String username = "postgres";
+        String password = "2251";
+        String query = "INSERT INTO library(book, author) VALUES ('book_name', 'author_name');";
+        try {
+            Connection connection = DriverManager.getConnection(jdbsURL, username, password);
+            System.out.println("Connected to Database:)");
+            Statement statement = connection.createStatement();
+            int resultSet = statement.executeUpdate(query);
+        }
+        catch (SQLException e) {
+            System.out.println("Error occurred while connecting to database!");
+            e.printStackTrace();
+        }
+
     }
 }

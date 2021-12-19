@@ -2,9 +2,6 @@ package com.example.librarymanager;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -147,17 +144,6 @@ public class HelloApplication extends Application {
         hBox.getChildren().addAll(textField, delete_btn, clear_btn, update_btn, add_btn);
         vBox.getChildren().addAll(img, listView, hBox);
         primaryStage.show();
-        String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
-        String username = "postgres";
-        String password = "2251";
-        try {
-            Connection connection = DriverManager.getConnection(jdbsURL, username, password);
-            System.out.println("Connected");
-        }
-        catch (SQLException e) {
-            System.out.println("Error");
-            e.printStackTrace();
-        }
     }
 
     public static void main(String[] args) {
