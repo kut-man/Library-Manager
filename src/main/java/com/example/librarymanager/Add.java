@@ -49,6 +49,23 @@ public class Add {
                 HelloApplication.getAuthors_list().add(author_filed.getText());
                 HelloApplication.getList().add(book_filed.getText());
                 HelloApplication.getCover().add(path_filed.getText());
+
+                String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
+                String username = "postgres";
+                String password = "2251";
+                String query = concat_query(book_filed.getText(), author_filed.getText());
+
+                try {
+                    Connection connection = DriverManager.getConnection(jdbsURL, username, password);
+                    System.out.println("Connected to Database:)");
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate(query);
+                }
+                catch (SQLException e) {
+                    System.out.println("Error occurred while connecting to database!");
+                    e.printStackTrace();
+                }
+
                 addStage.close();
             }
         });
@@ -78,21 +95,15 @@ public class Add {
 
         addStage.setScene(scene);
         addStage.show();
-
-        String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
-        String username = "postgres";
-        String password = "2251";
-        String query = "INSERT INTO library(book, author) VALUES ('book_name', 'author_name');";
-        try {
-            Connection connection = DriverManager.getConnection(jdbsURL, username, password);
-            System.out.println("Connected to Database:)");
-            Statement statement = connection.createStatement();
-            int resultSet = statement.executeUpdate(query);
-        }
-        catch (SQLException e) {
-            System.out.println("Error occurred while connecting to database!");
-            e.printStackTrace();
-        }
-
+    }
+    public static String concat_query(String book_name, String author_name) {
+        String colon = "', '";
+        String brackets = "');";
+        String query = "INSERT INTO library(book, author) VALUES ('";
+        query = query.concat(book_name);
+        query = query.concat(colon);
+        query = query.concat(author_name);
+        query = query.concat(brackets);
+        return query;
     }
 }
