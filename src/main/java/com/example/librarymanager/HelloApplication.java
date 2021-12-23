@@ -54,7 +54,6 @@ public class HelloApplication extends Application {
         Label book_name = new Label();
         Label authors = new Label();
 
-
         public ListRows() throws FileNotFoundException {
             super();
             hbox.getChildren().addAll(vbox, imageView, book_name, authors);

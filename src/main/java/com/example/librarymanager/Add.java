@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.*;
 
 public class Add {
@@ -28,6 +30,7 @@ public class Add {
         Label book_lbl = new Label("Book Name:");
         Label author_lbl = new Label("Author Name:");
         Label path_lbl = new Label("Image Path:");
+        Label error = new Label();
         TextField book_filed = new TextField();
         TextField author_filed = new TextField();
         TextField path_filed = new TextField();
@@ -46,28 +49,33 @@ public class Add {
         add_btn.setTranslateY(20);
         add_btn.setOnAction(event -> {
             if (!"".equals(author_filed.getText()) || !"".equals(book_filed.getText()) || !"".equals(path_filed.getText())) {
-
-                HelloApplication.getCover().add(path_filed.getText());
-                HelloApplication.getAuthors_list().add(author_filed.getText());
-                HelloApplication.getList().add(book_filed.getText());
-
-                String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
-                String username = "postgres";
-                String password = "2251";
-                String query = concat_query(book_filed.getText(), author_filed.getText());
-
                 try {
-                    Connection connection = DriverManager.getConnection(jdbsURL, username, password);
-                    System.out.println("Connected to Database:)");
-                    Statement statement = connection.createStatement();
-                    statement.executeUpdate(query);
-                }
-                catch (SQLException e) {
-                    System.out.println("Error occurred while connecting to database!");
-                    e.printStackTrace();
-                }
+                    FileInputStream file = new FileInputStream(path_filed.getText());
+                    HelloApplication.getCover().add(path_filed.getText());
+                    HelloApplication.getAuthors_list().add(author_filed.getText());
+                    HelloApplication.getList().add(book_filed.getText());
 
-                addStage.close();
+                    String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
+                    String username = "postgres";
+                    String password = "2251";
+                    String query = concat_query(book_filed.getText(), author_filed.getText());
+
+                    try {
+                        Connection connection = DriverManager.getConnection(jdbsURL, username, password);
+                        System.out.println("Connected to Database:)");
+                        Statement statement = connection.createStatement();
+                        statement.executeUpdate(query);
+
+                        addStage.close();
+                    }
+                    catch (SQLException e) {
+                        System.out.println("Error occurred while connecting to database!");
+                        e.printStackTrace();
+                    }
+                } catch (FileNotFoundException e) {
+                    System.out.println("Incorrect File Type");
+                    error.setText("Choose proper File");
+                }
             }
         });
 
@@ -85,7 +93,7 @@ public class Add {
         vBox1.getChildren().addAll(book_lbl, book_filed);
         vBox2.getChildren().addAll(author_lbl, author_filed);
         vBox3.getChildren().addAll(path_lbl, hBox);
-        vBox.getChildren().addAll(vBox1, vBox2 , vBox3, add_btn);
+        vBox.getChildren().addAll(vBox1, vBox2 , vBox3, add_btn, error);
         hBox.getChildren().addAll(path_filed, file_chooser);
 
         vBox.setAlignment(Pos.BASELINE_CENTER);
