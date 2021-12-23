@@ -13,8 +13,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class Upload {
+public class Update {
     public static void start () {
         Stage updateStage = new Stage();
         Stage file_stage = new Stage();
@@ -51,10 +55,27 @@ public class Upload {
         
         update_btn.setOnAction(event -> {
             if (!"".equals(author_filed.getText()) || !"".equals(book_filed.getText()) || !"".equals(path_filed.getText())) {
-                HelloApplication.list.set(selected_index, book_filed.getText());
+
                 HelloApplication.authors_list.set(selected_index, author_filed.getText());
                 HelloApplication.book_cover.set(selected_index, path_filed.getText());
+                HelloApplication.list.set(selected_index, book_filed.getText());
                 updateStage.close();
+
+                String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
+                String username = "postgres";
+                String password = "2251";
+                String query = concat_query(book_filed.getText(), author_filed.getText(), selected_index);
+
+                try {
+                    Connection connection = DriverManager.getConnection(jdbsURL, username, password);
+                    System.out.println("Connected to Database:)");
+                    Statement statement = connection.createStatement();
+                    statement.executeUpdate(query);
+                }
+                catch (SQLException e) {
+                    System.out.println("Error occurred while connecting to database!");
+                    e.printStackTrace();
+                }
             }
 
         });
@@ -84,5 +105,16 @@ public class Upload {
 
         updateStage.setScene(scene);
         updateStage.show();
+    }
+    public static String concat_query(String book_name, String author_name, int index) {
+        String query = "UPDATE library SET book = '";
+        query = query.concat(book_name);
+        query = query.concat("', author = '");
+        query = query.concat(author_name);
+        query = query.concat("' ");
+        query = query.concat("WHERE id = ");
+        query = query.concat(String.valueOf(index));
+        query = query.concat(";");
+        return query;
     }
 }

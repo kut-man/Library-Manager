@@ -46,9 +46,10 @@ public class Add {
         add_btn.setTranslateY(20);
         add_btn.setOnAction(event -> {
             if (!"".equals(author_filed.getText()) || !"".equals(book_filed.getText()) || !"".equals(path_filed.getText())) {
+
+                HelloApplication.getCover().add(path_filed.getText());
                 HelloApplication.getAuthors_list().add(author_filed.getText());
                 HelloApplication.getList().add(book_filed.getText());
-                HelloApplication.getCover().add(path_filed.getText());
 
                 String jdbsURL = "jdbc:postgresql://localhost:5432/postgres";
                 String username = "postgres";
@@ -97,13 +98,11 @@ public class Add {
         addStage.show();
     }
     public static String concat_query(String book_name, String author_name) {
-        String colon = "', '";
-        String brackets = "');";
         String query = "INSERT INTO library(book, author) VALUES ('";
         query = query.concat(book_name);
-        query = query.concat(colon);
+        query = query.concat("', '");
         query = query.concat(author_name);
-        query = query.concat(brackets);
+        query = query.concat("');");
         return query;
     }
 }

@@ -23,13 +23,15 @@ import javafx.stage.Stage;
 
 public class HelloApplication extends Application {
     public static ObservableList<String> list = FXCollections.observableArrayList(
-            "Da Vinci Code,The", "Harry Potter and the Deathly Hallows", "Harry Potter and the Philosopher's Stone", "Harry Potter and the Order of the Phoenix");
+            "The Da Vinci Code", "Harry Potter and the Deathly Hallows", "Harry Potter and the Philosopher's Stone", "Harry Potter and the Order of the Phoenix");
     public static ObservableList<String> authors_list = FXCollections.observableArrayList(
             "Brown, Dan", "Rowling, J.K.", "Rowling, J.K.", "Rowling, J.K.");
     public static ObservableList<String> book_cover = FXCollections.observableArrayList(
-            "C:\\Users\\User\\Downloads\\b.jpg", "C:\\Users\\User\\Downloads\\b.jpg",
-            "C:\\Users\\User\\Downloads\\b.jpg", "C:\\Users\\User\\Downloads\\b.jpg",
-            "C:\\Users\\User\\Downloads\\b.jpg");
+            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\code.jpeg",
+            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\harry.jpg",
+            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\harry.jpg",
+            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\harry.jpg");
+
     public static ObservableList<String> getCover() {
         return book_cover;
     }
@@ -39,12 +41,13 @@ public class HelloApplication extends Application {
     public static ObservableList<String> getAuthors_list() {
         return authors_list;
     }
+
     public static ListView<String> listView = new ListView<>(list);
-    public static BackgroundFill background_fill1 = new BackgroundFill(Color.rgb(66, 61, 174),
+    public static BackgroundFill background_fill1 = new BackgroundFill(Color.rgb(189, 213, 255),
             CornerRadii.EMPTY, Insets.EMPTY);
     public static Background background1 = new Background(background_fill1);
 
-    static class XCell extends ListCell<String> {
+    static class ListRows extends ListCell<String> {
         HBox hbox = new HBox();
         VBox vbox = new VBox();
         ImageView imageView = new ImageView();
@@ -52,7 +55,7 @@ public class HelloApplication extends Application {
         Label authors = new Label();
 
 
-        public XCell() throws FileNotFoundException {
+        public ListRows() throws FileNotFoundException {
             super();
             hbox.getChildren().addAll(vbox, imageView, book_name, authors);
             HBox.setHgrow(vbox, Priority.ALWAYS);
@@ -113,11 +116,13 @@ public class HelloApplication extends Application {
         img.setTranslateX(50);
         img.setTranslateY(20);
 
+        textField.setBackground(background1);
+
         listView.getSelectionModel().selectedItemProperty().addListener((observableValue, s, t1) -> textField.setText(listView.getSelectionModel().getSelectedItem()));
 
         listView.setCellFactory(param -> {
             try {
-                return new XCell();
+                return new ListRows();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -131,10 +136,14 @@ public class HelloApplication extends Application {
         HBox.setMargin(add_btn, new Insets(0, 100, 0, 100));
         vBox.setBackground(background);
 
-        delete_btn.setOnAction(event -> listView.getItems().remove(listView.getSelectionModel().getSelectedItem()));
+        delete_btn.setOnAction(event -> {
+            book_cover.remove(listView.getSelectionModel().getSelectedIndex());
+            authors_list.remove(listView.getSelectionModel().getSelectedIndex());
+            listView.getItems().remove(listView.getSelectionModel().getSelectedItem());
+        });
         clear_btn.setOnAction(event -> listView.getItems().removeAll(list));
         add_btn.setOnAction(event -> Add.start());
-        update_btn.setOnAction(event -> Upload.start());
+        update_btn.setOnAction(event -> Update.start());
 
         clear_btn.setBackground(background1);
         add_btn.setBackground(background1);
