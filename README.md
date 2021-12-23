@@ -18,7 +18,7 @@ ___
 ![Screenshot 2021-12-23 161726](https://user-images.githubusercontent.com/73386100/147226122-9db5a71a-7cad-4cd2-80d5-f0fba43d474f.png)
 
 
-all. [Here is full Code](https://github.com/Kutman7/Library-Manager/tree/main/src/main/java/com/example/librarymanager).
+[Here is full Code](https://github.com/Kutman7/Library-Manager/tree/main/src/main/java/com/example/librarymanager).
 
 * [x] readme.md
 * [x] description
