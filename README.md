@@ -2,7 +2,7 @@
 
 My final project
 
-Author: **Kutman Eshenkulov** **Nurak Karabekov**
+Author: **Kutman Eshenkulov,** **Nurak Karabekov**
 
 ___
 
