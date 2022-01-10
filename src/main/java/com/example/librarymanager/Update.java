@@ -85,6 +85,7 @@ public class Update {
                         Connection connection = DriverManager.getConnection(jdbsURL, username, password);
                         System.out.println("Connected to Database:)");
                         Statement statement = connection.createStatement();
+                        System.out.println(query);
                         statement.executeUpdate(query);
                     }
                     catch (SQLException e) {
@@ -134,7 +135,7 @@ public class Update {
         query = query.concat(author_name);
         query = query.concat("' ");
         query = query.concat("WHERE id = ");
-        query = query.concat(String.valueOf(index));
+        query = query.concat(String.valueOf(index + 1));
         query = query.concat(";");
         return query;
     }
