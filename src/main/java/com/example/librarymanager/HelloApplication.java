@@ -27,10 +27,10 @@ public class HelloApplication extends Application {
     public static ObservableList<String> authors_list = FXCollections.observableArrayList(
             "Brown, Dan", "Rowling, J.K.", "Rowling, J.K.", "Rowling, J.K.");
     public static ObservableList<String> book_cover = FXCollections.observableArrayList(
-            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\code.jpeg",
-            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\harry.jpg",
-            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\harry.jpg",
-            "D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\harry.jpg");
+            "img\\code.jpeg",
+            "img\\harry.jpg",
+            "img\\harry.jpg",
+            "img\\harry.jpg");
 
     public static ObservableList<String> getCover() {
         return book_cover;
@@ -93,7 +93,7 @@ public class HelloApplication extends Application {
         VBox vBox = new VBox();
         HBox hBox = new HBox();
         Scene scene = new Scene(vBox, 800, 700);
-        Image logo = new Image(new FileInputStream("C:\\Users\\User\\Downloads\\logo.png"));
+        Image logo = new Image(new FileInputStream("img\\icon.png"));
         ImageView img = new ImageView(logo);
 
         TextField textField = new TextField(listView.getSelectionModel().getSelectedItem());
@@ -101,7 +101,7 @@ public class HelloApplication extends Application {
         Button clear_btn = new Button("Clear");
         Button update_btn = new Button("Update");
         Button add_btn = new Button("Add");
-        Image icon = new Image(new FileInputStream("D:\\Library Manager\\src\\main\\java\\com\\example\\librarymanager\\icon.png"));
+        Image icon = new Image(new FileInputStream("img\\icon.png"));
         BackgroundFill background_fill = new BackgroundFill(Color.rgb(53, 52, 75),
                 CornerRadii.EMPTY, Insets.EMPTY);
         Background background = new Background(background_fill);
