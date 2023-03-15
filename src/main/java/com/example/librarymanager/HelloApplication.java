@@ -91,7 +91,7 @@ public class HelloApplication extends Application {
         VBox vBox = new VBox();
         HBox hBox = new HBox();
         Scene scene = new Scene(vBox, 800, 700);
-        Image logo = new Image(new FileInputStream("img\\icon.png"));
+        Image logo = new Image(new FileInputStream("img\\vistula.png"));
         ImageView img = new ImageView(logo);
 
         TextField textField = new TextField(listView.getSelectionModel().getSelectedItem());
@@ -108,8 +108,8 @@ public class HelloApplication extends Application {
         primaryStage.setTitle("Library Manager");
         primaryStage.getIcons().add(icon);
 
-        img.setFitHeight(150);
-        img.setFitWidth(150);
+        img.setFitHeight(180);
+        img.setFitWidth(300);
         img.setTranslateX(50);
         img.setTranslateY(20);
 
