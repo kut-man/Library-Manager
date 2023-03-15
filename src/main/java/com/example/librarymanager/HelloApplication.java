@@ -22,15 +22,13 @@ import javafx.stage.Stage;
 
 
 public class HelloApplication extends Application {
+
     public static ObservableList<String> list = FXCollections.observableArrayList(
             "The Da Vinci Code", "Harry Potter and the Deathly Hallows", "Harry Potter and the Philosopher's Stone", "Harry Potter and the Order of the Phoenix");
+
     public static ObservableList<String> authors_list = FXCollections.observableArrayList(
             "Brown, Dan", "Rowling, J.K.", "Rowling, J.K.", "Rowling, J.K.");
-    public static ObservableList<String> book_cover = FXCollections.observableArrayList(
-            "img\\code.jpeg",
-            "img\\harry.jpg",
-            "img\\harry.jpg",
-            "img\\harry.jpg");
+    public static ObservableList<String> book_cover = FXCollections.observableArrayList("img\\code.jpeg","img\\harry.jpg","img\\harry.jpg","img\\harry.jpg");
 
     public static ObservableList<String> getCover() {
         return book_cover;
